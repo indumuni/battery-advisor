@@ -2,7 +2,9 @@
 name = "battery-advisor"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pydantic>=2,<3",
+]
 
 [build-system]
 requires = ["hatchling"]
