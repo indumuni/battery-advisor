@@ -32,3 +32,19 @@ environment, for example `uv run make test`.
 
 Available targets: `make ingest`, `make test`, `make eval`, `make serve-mcp`,
 and `make run`. Generated indexes in `data/vectorstore/` are ignored by Git.
+
+## Development
+```uv run pytest tests/unit                       # tests
+uv run ruff check . && uv run ruff format .    # lint + format
+uv run --env-file .env python -m battery_advisor.agent.loop   # try Step 2
+uv add <package>                               # add a dependency later (chromadb, mcp, ...)
+```
+
+```
+test:
+	uv run pytest
+lint:
+	uv run ruff check .
+run:
+	uv run --env-file .env python -m battery_advisor.agent.loop
+```
