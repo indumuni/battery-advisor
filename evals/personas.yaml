@@ -1,0 +1,7 @@
+personas:
+  - id: e_bike_commuter
+    description: E-bike commuter seeking a compatible pack for a daily commute.
+  - id: off_grid_solar
+    description: Off-grid solar user sizing storage for overnight energy needs.
+  - id: drone
+    description: Drone operator balancing runtime, voltage, and pack weight.

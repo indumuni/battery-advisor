@@ -1,0 +1,9 @@
+models:
+  chat: claude-sonnet-4-6
+locale:
+  currency: AUD
+  timezone: Australia/Melbourne
+rag:
+  chunk_size: 800
+  chunk_overlap: 100
+  top_k: 5
