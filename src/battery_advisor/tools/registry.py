@@ -7,6 +7,16 @@ from battery_advisor.tools.compatibility import check_compatibility
 from battery_advisor.tools.runtime_calc import estimate_runtime
 from battery_advisor.tools.solar import melbourne_sun_times, solar_charge_plan
 
+
+
+from typing import Literal
+from battery_advisor.rag.retriever import search_knowledge
+
+class KnowledgeIn(BaseModel):
+    query: str
+    k: int = 4
+    category: Literal["datasheets", "guides", "standards"] | None = None
+
 class SearchIn(BaseModel):
     limit: int = 5
 class CompatIn(BaseModel):
@@ -42,6 +52,11 @@ REGISTRY: dict[str, Tool] = {t.name: t for t in [
          SunIn, melbourne_sun_times),
     Tool("solar_charge_plan", "Days to fully charge a pack from a solar panel in Melbourne.",
          SolarPlanIn, solar_charge_plan),
+    Tool("search_knowledge",
+         "Search the battery knowledge base (chemistry, sizing, safety, certifications, "
+         "transport rules, pack datasheets). Use it for any explanation, safety, standards or "
+         "regulatory claim, and cite the returned 'source'. Use category to narrow the search.",
+         KnowledgeIn, search_knowledge),
 ]}
 
 def anthropic_schemas() -> list[dict]:

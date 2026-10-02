@@ -4,6 +4,7 @@ import anthropic
 from battery_advisor.models.requirements import Requirements
 from battery_advisor.agent.state import AgentState
 from battery_advisor.agent.clarifier import status_report
+from battery_advisor.agent.recommender import recommend  # put with the other imports
 
 MODEL = "claude-sonnet-5-5"   # move to configs/settings.yaml
 PROMPTS = Path(__file__).resolve().parents[3] / "configs" / "prompts"
@@ -74,9 +75,11 @@ class ClarifyingAgent:
                                     "content": json.dumps(out)})
             s.messages.append({"role": "user", "content": results})
 
+
 if __name__ == "__main__":
     agent = ClarifyingAgent()
     print("Battery advisor: what are you looking to power?")
     while not agent.state.finalized:
         print("\n" + agent.chat(input("> ")))
-    print("\nFinal requirements:\n", agent.state.requirements.model_dump_json(indent=2))
+    print("\nFinding your best options...\n")
+    print(recommend(agent.client, MODEL, agent.state.requirements, agent.state.assumptions))

@@ -1,4 +1,7 @@
-"""Build the RAG vector store from knowledge documents."""
+from battery_advisor.rag.ingest import ingest
+from battery_advisor.rag.retriever import search_knowledge
 
-if __name__ == "__main__":
-    raise SystemExit("This component is scaffolded; implementation is pending.")
+n = ingest()
+print(f"Indexed {n} chunks")
+for hit in search_knowledge("can I charge LiFePO4 in freezing weather", k=3)["results"]:
+    print(f'{hit["score"]:.2f}  {hit["source"]}  [{hit["heading"]}]')
